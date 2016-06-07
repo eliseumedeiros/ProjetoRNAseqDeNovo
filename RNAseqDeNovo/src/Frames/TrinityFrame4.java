@@ -48,6 +48,7 @@ public class TrinityFrame4 extends javax.swing.JFrame {
         jButtonDefalt = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(430, 300));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -87,8 +88,10 @@ public class TrinityFrame4 extends javax.swing.JFrame {
 
         jLabel4.setText("Nome:");
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo"));
 
+        jRadioButton1.setBackground(new java.awt.Color(255, 255, 255));
         jRadioButton1.setText("Fastq");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,6 +99,7 @@ public class TrinityFrame4 extends javax.swing.JFrame {
             }
         });
 
+        jRadioButton2.setBackground(new java.awt.Color(255, 255, 255));
         jRadioButton2.setText("Fasta");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -118,6 +122,7 @@ public class TrinityFrame4 extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Sequências"));
 
         jLabel7.setText("Seq2");

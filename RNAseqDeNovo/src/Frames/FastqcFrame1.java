@@ -42,6 +42,8 @@ public class FastqcFrame1 extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTextFComando1 = new javax.swing.JTextField();
 
+        setResizable(false);
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel2.setBackground(java.awt.Color.orange);

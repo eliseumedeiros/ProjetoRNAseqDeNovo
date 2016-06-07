@@ -42,6 +42,7 @@ public class LimparFrame3 extends javax.swing.JFrame {
         jTextFComando1 = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(391, 277));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
