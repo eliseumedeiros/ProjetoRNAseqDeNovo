@@ -62,29 +62,7 @@ public class RNAseqDeNovo {
 	         out.println("#!/bin/bash");
 	         out.println("cd tutorialRNASEQ");
 	         out.println("mkdir screen");
-	         out.println("fastq_screen --outdir screen brain_1.fastq brain_2.fastq");
-	         out.println("fastqc brain_1.fastq brain_2.fastq");
-	         out.println("trim_galore -q 20 brain_1.fastq");
-	         out.println("trim_galore -q 20 brain_2.fastq");
-	         out.println("fastqc brain_1_trimmed.fq brain_2_trimmed.fq");
-
-	         out.println("fastq_screen --outdir screen adrenal_1.fastq adrenal_2.fastq");
-	         out.println("fastqc adrenal_1.fastq adrenal_2.fastq");
-	         out.println("trim_galore -q 20 adrenal_1.fastq");
-	         out.println("trim_galore -q 20 adrenal_2.fastq");
-	         out.println("fastqc adrenal_1_trimmed.fq adrenal_2_trimmed.fq");
-
-	         out.println("mkdir adrenal");
-	         out.println("tophat2 -o adrenal --GTF hg19-chr19-gene-annotation.gtf /home/databases/hg19/hg19 adrenal_1.fastq,adrenal_2.fastq");
-	         out.println("mkdir brain");
-	         out.println("tophat2 -o brain --GTF hg19-chr19-gene-annotation.gtf /home/databases/hg19/hg19 brain_1.fastq,brain_2.fastq");
-	         out.println("mkdir cuff_adrenal");
-	         out.println("cufflinks -o cuff_adrenal -G hg19-chr19-gene-annotation.gtf adrenal/accepted_hits.bam");
-	         out.println("mkdir cuff_brain");
-	         out.println("cufflinks -o cuff_brain -G hg19-chr19-gene-annotation.gtf brain/accepted_hits.bam");
-	         out.println("mkdir diff");
-	         out.println("cuffdiff hg19-chr19-gene-annotation.gtf adrenal/accepted_hits.bam brain/accepted_hits.bam -o diff");
-	         out.println("ls");
+	   
 	         //Close the output stream
 	         out.close();
 	     }catch (Exception e){//Catch exception if any
