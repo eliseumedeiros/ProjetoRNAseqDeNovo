@@ -9,12 +9,21 @@ import Frames.FastqcFrame1;
 import Frames.LimparFrame3;
 import Frames.TrimmFrame2;
 import Frames.TrinityFrame4;
+import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.UserInfo;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -29,6 +38,7 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
      */
     public RNAseqDeNovoFrame() {
         initComponents();
+        enableAllButtons(false);
     }
 
     /**
@@ -48,18 +58,22 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jTextFPorta = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jTextFRoot = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jPasswordFSenha = new javax.swing.JPasswordField();
         jButtonConectar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonDesconec = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jPasswordFSenha = new javax.swing.JPasswordField();
+        jLabel12 = new javax.swing.JLabel();
+        jTextFRoot = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jTextFPorta = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jTextFieldPrefetch = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jButtonOkPrefetch = new javax.swing.JButton();
+        jTextFieldPrefetchLocal = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jButtonFastqc = new javax.swing.JButton();
@@ -67,9 +81,9 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         jButtonLimpar = new javax.swing.JButton();
         jButtonTrinity = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
-        jTextFieldPrefetch1 = new javax.swing.JTextField();
-        jButtonOkPrefetch1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jTextFieldLocalArquivo = new javax.swing.JTextField();
+        jButtonAbrirArq = new javax.swing.JButton();
+        jButtonEnviar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -135,18 +149,23 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Conecção com o computador", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 153, 0))); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel8.setText("Usuário:");
+        jButtonConectar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButtonConectar.setText("Conectar");
+        jButtonConectar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConectarActionPerformed(evt);
+            }
+        });
 
-        jTextFPorta.setText("4422");
+        jButtonDesconec.setText("Desconectar");
+        jButtonDesconec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDesconecActionPerformed(evt);
+            }
+        });
 
-        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel7.setText("ssh -p");
-
-        jTextFRoot.setText("eliseumedeiros1@10.7.5.38");
-
-        jLabel12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel12.setText("Senha:");
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Usuário"));
 
         jPasswordFSenha.setText("eliseumedeiros1");
         jPasswordFSenha.addActionListener(new java.awt.event.ActionListener() {
@@ -155,19 +174,79 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
             }
         });
 
-        jButtonConectar.setText("Conectar");
-        jButtonConectar.addActionListener(new java.awt.event.ActionListener() {
+        jLabel12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel12.setText("Senha:");
+
+        jTextFRoot.setText("eliseumedeiros1@10.7.5.38");
+        jTextFRoot.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonConectarActionPerformed(evt);
+                jTextFRootActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Desconectar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel8.setText("Usuário:");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPasswordFSenha))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFRoot)))
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(jTextFRoot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jPasswordFSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Porta"));
+
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel7.setText("ssh -p");
+
+        jTextFPorta.setText("4422");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFPorta, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFPorta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -175,47 +254,39 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFPorta, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPasswordFSenha))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFRoot, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonConectar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(59, 59, 59))
+                    .addComponent(jButtonConectar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonDesconec, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFPorta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextFRoot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonConectar))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButtonConectar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(jPasswordFSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(11, 11, 11))
+                .addComponent(jButtonDesconec)
+                .addGap(26, 26, 26))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Baixar por SRA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(153, 204, 0))); // NOI18N
 
         jTextFieldPrefetch.setText("DRR031614");
+        jTextFieldPrefetch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldPrefetchActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel10.setText("Prefetch:");
@@ -227,30 +298,49 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
             }
         });
 
+        jTextFieldPrefetchLocal.setText("AlinhamentoRNAseqDeNovo");
+        jTextFieldPrefetchLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldPrefetchLocalActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel11.setText("Pasta:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldPrefetch, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonOkPrefetch)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldPrefetch, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonOkPrefetch))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldPrefetchLocal)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextFieldPrefetchLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldPrefetch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonOkPrefetch))
+                    .addComponent(jLabel10)
+                    .addComponent(jButtonOkPrefetch))
+                .addContainerGap())
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -314,7 +404,7 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(125, Short.MAX_VALUE)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(122, 122, 122))
         );
@@ -328,23 +418,23 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Enviar Arquivo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(102, 51, 255))); // NOI18N
 
-        jTextFieldPrefetch1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldLocalArquivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPrefetch1ActionPerformed(evt);
+                jTextFieldLocalArquivoActionPerformed(evt);
             }
         });
 
-        jButtonOkPrefetch1.setText("Abrir");
-        jButtonOkPrefetch1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAbrirArq.setText("Abrir");
+        jButtonAbrirArq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonOkPrefetch1ActionPerformed(evt);
+                jButtonAbrirArqActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Enviar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEnviar.setText("Enviar");
+        jButtonEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonEnviarActionPerformed(evt);
             }
         });
 
@@ -354,11 +444,11 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextFieldPrefetch1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldLocalArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonOkPrefetch1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonAbrirArq, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -366,10 +456,10 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldPrefetch1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonOkPrefetch1))
+                    .addComponent(jTextFieldLocalArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonAbrirArq))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2))
+                .addComponent(jButtonEnviar))
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -473,8 +563,8 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
           System.out.println(host + "\t" + user + "\t"  + porta + "\t" +
                   password);
           /*///#######
-          session=jsch.getSession(user, host, porta); //estabelecendo conexão
-          session.setPassword(password);
+          this.session=jsch.getSession(user, host, porta); //estabelecendo conexão
+          this.session.setPassword(password);
           // criando 
           UserInfo ui = new MyUserInfo(){
             public void showMessage(String message){
@@ -491,19 +581,65 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
               return foo==0;
             }
          };
+         session.setUserInfo(ui);
+         session.connect(30000);
         }catch (Exception e){
            
             JOptionPane.showMessageDialog(rootPane, "Ocorreu algum Problama ao concectar com o servidor.");
             return;
         }    
          jButtonConectar.setEnabled(false);
+         enableAllButtons(true);
     }//GEN-LAST:event_jButtonConectarActionPerformed
 
     private void jButtonOkPrefetchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOkPrefetchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonOkPrefetchActionPerformed
+        if (jTextFieldPrefetch.getText().isEmpty() ){
+            JOptionPane.showMessageDialog(rootPane, "Você precisa que colocar algum SRA.");
+            return;
+        }
+        //desativando botões
+        enableAllButtons(false);
+        
+        String filename = "prefetch.sh"; 
+	File fstream = new File(filename);
 
-    private void jButtonOkPrefetch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOkPrefetch1ActionPerformed
+        try{
+             // Create file 
+            PrintStream out = new PrintStream(new FileOutputStream(fstream));
+            out.println("#!/bin/bash");
+            if(!jTextFieldPrefetchLocal.getText().isEmpty())
+                out.println("cd " + jTextFieldPrefetchLocal.getText());
+            out.println("fastqc SRR030257_1.fastq");
+            //Close the output stream
+            out.close();
+        }catch (Exception e){//Catch exception if any
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu algum erro ao executar o comando.");
+        }
+        executandoComando(fstream);
+        enableAllButtons(true); //reativando botões
+
+    }//GEN-LAST:event_jButtonOkPrefetchActionPerformed
+    private void executandoComando(File fstream){
+        try{
+            Channel channel =session.openChannel("shell");
+            FileInputStream fin = new FileInputStream(fstream);
+            byte fileContent[] = new byte[(int)fstream.length()];
+            fin.read(fileContent);
+            InputStream in = new ByteArrayInputStream(fileContent);
+                //Set the shell script to the channel as input stream
+            channel.setInputStream(in);
+            channel.connect();
+            
+        } catch (JSchException ex) {//erro channel
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu algum erro ao executar o channel.");
+        } catch (FileNotFoundException ex) { //erro FileImputStream
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu algum erro ao executar o FileImputStream.");
+        } catch (IOException ex) {//erro ImpitStream
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu algum erro ao executar o ImpitStream.");
+        }
+    }
+    private void jButtonAbrirArqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirArqActionPerformed
         // TODO add your handling code here:
          // TODO add your handling code here:
         chooserOpen = new JFileChooser();
@@ -511,25 +647,46 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         if (chooserOpen.showOpenDialog(null) != JFileChooser.APPROVE_OPTION){
             return;
         }
-    }//GEN-LAST:event_jButtonOkPrefetch1ActionPerformed
+    }//GEN-LAST:event_jButtonAbrirArqActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnviarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonEnviarActionPerformed
 
-    private void jTextFieldPrefetch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPrefetch1ActionPerformed
+    private void jTextFieldLocalArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLocalArquivoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPrefetch1ActionPerformed
+    }//GEN-LAST:event_jTextFieldLocalArquivoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonDesconecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDesconecActionPerformed
         // TODO add your handling code here:
          jButtonConectar.setEnabled(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+         enableAllButtons(false);
+    }//GEN-LAST:event_jButtonDesconecActionPerformed
 
     private void jPasswordFSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordFSenhaActionPerformed
 
+    private void jTextFieldPrefetchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPrefetchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldPrefetchActionPerformed
+
+    private void jTextFRootActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFRootActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFRootActionPerformed
+
+    private void jTextFieldPrefetchLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPrefetchLocalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldPrefetchLocalActionPerformed
+    public void enableAllButtons(boolean bool){
+        jButtonDesconec.setEnabled(bool);
+        jButtonOkPrefetch.setEnabled(bool);
+        jButtonEnviar.setEnabled(bool);
+        jButtonFastqc.setEnabled(bool);
+        jButtonTrimm.setEnabled(bool);
+        jButtonLimpar.setEnabled(bool);
+        jButtonTrinity.setEnabled(bool);
+    }
   
     public static File createShellScript() {
 	     String filename = "shellscript.sh";
@@ -554,17 +711,18 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
     JSch jsch;
     Session session;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonAbrirArq;
     private javax.swing.JButton jButtonConectar;
+    private javax.swing.JButton jButtonDesconec;
+    private javax.swing.JButton jButtonEnviar;
     private javax.swing.JButton jButtonFastqc;
     private javax.swing.JButton jButtonLimpar;
     private javax.swing.JButton jButtonOkPrefetch;
-    private javax.swing.JButton jButtonOkPrefetch1;
     private javax.swing.JButton jButtonTrimm;
     private javax.swing.JButton jButtonTrinity;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -578,11 +736,14 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPasswordField jPasswordFSenha;
     private javax.swing.JTextField jTextFPorta;
     private javax.swing.JTextField jTextFRoot;
+    private javax.swing.JTextField jTextFieldLocalArquivo;
     private javax.swing.JTextField jTextFieldPrefetch;
-    private javax.swing.JTextField jTextFieldPrefetch1;
+    private javax.swing.JTextField jTextFieldPrefetchLocal;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }
