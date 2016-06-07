@@ -133,19 +133,27 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Conecção com o computador", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 51))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Conecção com o computador", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 153, 0))); // NOI18N
 
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setText("Usuário:");
 
         jTextFPorta.setText("4422");
 
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("ssh -p");
 
         jTextFRoot.setText("eliseumedeiros1@10.7.5.38");
 
+        jLabel12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel12.setText("Senha:");
 
         jPasswordFSenha.setText("eliseumedeiros1");
+        jPasswordFSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordFSenhaActionPerformed(evt);
+            }
+        });
 
         jButtonConectar.setText("Conectar");
         jButtonConectar.addActionListener(new java.awt.event.ActionListener() {
@@ -173,42 +181,43 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonConectar))
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPasswordFSenha))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFRoot)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPasswordFSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jTextFRoot, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonConectar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(59, 59, 59))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFPorta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8)
                     .addComponent(jTextFRoot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12)
-                    .addComponent(jPasswordFSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
+                    .addComponent(jButtonConectar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonConectar)
-                    .addComponent(jButton1)))
+                    .addComponent(jLabel12)
+                    .addComponent(jPasswordFSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(11, 11, 11))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Baixar por SRA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 204, 0))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Baixar por SRA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(153, 204, 0))); // NOI18N
 
         jTextFieldPrefetch.setText("DRR031614");
 
+        jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel10.setText("Prefetch:");
 
         jButtonOkPrefetch.setText("Ok");
@@ -245,17 +254,14 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Passos Para Alinhamento"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Passos Para Alinhamento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(153, 153, 153))); // NOI18N
 
-        jToolBar1.setBackground(new java.awt.Color(255, 255, 255));
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
         jToolBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jButtonFastqc.setBackground(new java.awt.Color(255, 255, 255));
         jButtonFastqc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/v2botao1.png"))); // NOI18N
         jButtonFastqc.setBorderPainted(false);
-        jButtonFastqc.setDefaultCapable(true);
         jButtonFastqc.setFocusPainted(false);
         jButtonFastqc.setFocusable(false);
         jButtonFastqc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -267,9 +273,8 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         });
         jToolBar1.add(jButtonFastqc);
 
-        jButtonTrimm.setBackground(new java.awt.Color(255, 255, 255));
         jButtonTrimm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/v2botao2.png"))); // NOI18N
-        jButtonTrimm.setBorder(null);
+        jButtonTrimm.setBorderPainted(false);
         jButtonTrimm.setFocusable(false);
         jButtonTrimm.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonTrimm.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -280,9 +285,8 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         });
         jToolBar1.add(jButtonTrimm);
 
-        jButtonLimpar.setBackground(new java.awt.Color(255, 255, 255));
         jButtonLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/v2botao3.png"))); // NOI18N
-        jButtonLimpar.setBorder(null);
+        jButtonLimpar.setBorderPainted(false);
         jButtonLimpar.setFocusable(false);
         jButtonLimpar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonLimpar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -293,9 +297,8 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         });
         jToolBar1.add(jButtonLimpar);
 
-        jButtonTrinity.setBackground(new java.awt.Color(255, 255, 255));
         jButtonTrinity.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/v2botao4.png"))); // NOI18N
-        jButtonTrinity.setBorder(null);
+        jButtonTrinity.setBorderPainted(false);
         jButtonTrinity.setFocusable(false);
         jButtonTrinity.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonTrinity.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -310,20 +313,20 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(118, 118, 118)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(122, 122, 122))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Enviar Arquivo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 204, 0))); // NOI18N
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Enviar Arquivo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(102, 51, 255))); // NOI18N
 
         jTextFieldPrefetch1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -376,10 +379,14 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,8 +398,9 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -458,14 +466,14 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
           String host=jTextFRoot.getText(); //@localhost
           String user=host.substring(0, host.indexOf('@'));; //usuário
           host=host.substring(host.indexOf('@')+1);
-          JSch jsch=new JSch();
+          jsch=new JSch();
           int porta=Integer.parseInt(jTextFPorta.getText()); //porta ssh
           String password=new String(jPasswordFSenha.getPassword());
           /*/######
           System.out.println(host + "\t" + user + "\t"  + porta + "\t" +
                   password);
           /*///#######
-          Session session=jsch.getSession(user, host, porta); //estabelecendo conexão
+          session=jsch.getSession(user, host, porta); //estabelecendo conexão
           session.setPassword(password);
           // criando 
           UserInfo ui = new MyUserInfo(){
@@ -518,6 +526,10 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
          jButtonConectar.setEnabled(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jPasswordFSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordFSenhaActionPerformed
+
   
     public static File createShellScript() {
 	     String filename = "shellscript.sh";
@@ -539,6 +551,8 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
 
 	}
     JFileChooser chooserOpen;
+    JSch jsch;
+    Session session;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
