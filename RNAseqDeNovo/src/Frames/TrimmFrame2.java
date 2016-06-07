@@ -40,6 +40,8 @@ public class TrimmFrame2 extends javax.swing.JFrame {
         jTextFComando = new javax.swing.JTextField();
         jButtonDefalt = new javax.swing.JButton();
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel2.setText("Parâmetros");
 
         jTextField1.setText("jTextField1");

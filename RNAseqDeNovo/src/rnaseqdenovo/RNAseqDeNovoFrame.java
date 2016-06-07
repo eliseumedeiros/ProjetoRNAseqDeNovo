@@ -15,6 +15,7 @@ import com.jcraft.jsch.UserInfo;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -60,14 +61,11 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jButtonOkPrefetch = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jButtonTrimm = new javax.swing.JButton();
+        jToolBar1 = new javax.swing.JToolBar();
         jButtonFastqc = new javax.swing.JButton();
+        jButtonTrimm = new javax.swing.JButton();
         jButtonLimpar = new javax.swing.JButton();
         jButtonTrinity = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jTextFieldPrefetch1 = new javax.swing.JTextField();
         jButtonOkPrefetch1 = new javax.swing.JButton();
@@ -156,6 +154,11 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         });
 
         jButton1.setText("Desconectar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -176,8 +179,8 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFRoot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                        .addComponent(jTextFRoot)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPasswordFSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -194,11 +197,10 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
                     .addComponent(jTextFRoot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(jPasswordFSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(17, 17, 17)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonConectar)
-                    .addComponent(jButton1))
-                .addContainerGap())
+                    .addComponent(jButton1)))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -220,10 +222,10 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldPrefetch, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldPrefetch, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -242,22 +244,18 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Passos Para Alinhamento"));
 
-        jLabel5.setText("Fastqc");
+        jToolBar1.setBackground(new java.awt.Color(255, 255, 255));
+        jToolBar1.setFloatable(false);
+        jToolBar1.setRollover(true);
+        jToolBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel4.setText("limpar");
-
-        jButtonTrimm.setText("2");
-        jButtonTrimm.setFocusable(false);
-        jButtonTrimm.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonTrimm.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButtonTrimm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTrimmActionPerformed(evt);
-            }
-        });
-
-        jButtonFastqc.setText("1");
+        jButtonFastqc.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonFastqc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/v2botao1.png"))); // NOI18N
+        jButtonFastqc.setBorderPainted(false);
+        jButtonFastqc.setDefaultCapable(true);
+        jButtonFastqc.setFocusPainted(false);
         jButtonFastqc.setFocusable(false);
         jButtonFastqc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonFastqc.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -266,8 +264,24 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
                 jButtonFastqcActionPerformed(evt);
             }
         });
+        jToolBar1.add(jButtonFastqc);
 
-        jButtonLimpar.setText("3");
+        jButtonTrimm.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonTrimm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/v2botao2.png"))); // NOI18N
+        jButtonTrimm.setBorder(null);
+        jButtonTrimm.setFocusable(false);
+        jButtonTrimm.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonTrimm.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonTrimm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTrimmActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButtonTrimm);
+
+        jButtonLimpar.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/v2botao3.png"))); // NOI18N
+        jButtonLimpar.setBorder(null);
         jButtonLimpar.setFocusable(false);
         jButtonLimpar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonLimpar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -276,8 +290,11 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
                 jButtonLimparActionPerformed(evt);
             }
         });
+        jToolBar1.add(jButtonLimpar);
 
-        jButtonTrinity.setText("4");
+        jButtonTrinity.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonTrinity.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/v2botao4.png"))); // NOI18N
+        jButtonTrinity.setBorder(null);
         jButtonTrinity.setFocusable(false);
         jButtonTrinity.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonTrinity.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -286,71 +303,26 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
                 jButtonTrinityActionPerformed(evt);
             }
         });
-
-        jLabel2.setText("Trimm");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("Trinity");
+        jToolBar1.add(jButtonTrinity);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(132, 132, 132)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonFastqc, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel5)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonTrimm, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel2)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel4))
-                    .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonTrinity, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel3)))
+                .addGap(118, 118, 118)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jButtonFastqc, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonTrinity, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jButtonTrimm, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Enviar Arquivo"));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Enviar Arquivo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 204, 0))); // NOI18N
 
         jTextFieldPrefetch1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -379,12 +351,10 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTextFieldPrefetch1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonOkPrefetch1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonOkPrefetch1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -420,8 +390,8 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -526,6 +496,12 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
 
     private void jButtonOkPrefetch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOkPrefetch1ActionPerformed
         // TODO add your handling code here:
+         // TODO add your handling code here:
+        chooserOpen = new JFileChooser();
+        //Se não carregou o arquivo, não tem o que fazer
+        if (chooserOpen.showOpenDialog(null) != JFileChooser.APPROVE_OPTION){
+            return;
+        }
     }//GEN-LAST:event_jButtonOkPrefetch1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -535,6 +511,11 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
     private void jTextFieldPrefetch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPrefetch1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldPrefetch1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+         jButtonConectar.setEnabled(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
   
     public static File createShellScript() {
@@ -556,7 +537,7 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
 	     return fstream;
 
 	}
-
+    JFileChooser chooserOpen;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -574,10 +555,6 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
@@ -591,5 +568,6 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFRoot;
     private javax.swing.JTextField jTextFieldPrefetch;
     private javax.swing.JTextField jTextFieldPrefetch1;
+    private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }

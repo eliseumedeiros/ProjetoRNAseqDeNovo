@@ -49,6 +49,8 @@ public class TrinityFrame4 extends javax.swing.JFrame {
 
         setPreferredSize(new java.awt.Dimension(430, 300));
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         jPanel2.setBackground(java.awt.Color.orange);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 36)); // NOI18N
@@ -80,6 +82,7 @@ public class TrinityFrame4 extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Parâmetros"));
 
         jLabel4.setText("Nome:");

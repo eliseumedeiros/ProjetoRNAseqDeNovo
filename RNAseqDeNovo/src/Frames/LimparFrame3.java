@@ -43,6 +43,8 @@ public class LimparFrame3 extends javax.swing.JFrame {
 
         setPreferredSize(new java.awt.Dimension(391, 277));
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         jPanel2.setBackground(java.awt.Color.orange);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 36)); // NOI18N
@@ -73,6 +75,7 @@ public class LimparFrame3 extends javax.swing.JFrame {
             .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Arquivo"));
 
         jButtonOk.setText("ok");
