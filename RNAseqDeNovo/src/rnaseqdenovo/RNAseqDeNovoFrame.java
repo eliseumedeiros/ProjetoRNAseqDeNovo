@@ -21,12 +21,12 @@ import javax.swing.JOptionPane;
  *
  * @author EliseuMedeiros
  */
-public class PrincipalFrame extends javax.swing.JFrame {
+public class RNAseqDeNovoFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form PrincipalFrame
      */
-    public PrincipalFrame() {
+    public RNAseqDeNovoFrame() {
         initComponents();
     }
 
@@ -128,7 +128,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Conecção com o computador", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(51, 51, 51))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Conecção com o computador", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 51))); // NOI18N
 
         jLabel8.setText("usuário:");
 
@@ -371,14 +371,23 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
     private void jButtonTrimmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTrimmActionPerformed
         // TODO add your handling code here:
-        TrimmFrame2 trimmFrame = new TrimmFrame2();
-        trimmFrame.setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                 new TrimmFrame2().setVisible(true);
+            }
+        });
+        
     }//GEN-LAST:event_jButtonTrimmActionPerformed
 
     private void jButtonFastqcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFastqcActionPerformed
         // TODO add your handling code here:
-        FastqcFrame1 fastqcFrame = new FastqcFrame1();
-        fastqcFrame.setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                 new FastqcFrame1().setVisible(true);
+            }
+        });
     }//GEN-LAST:event_jButtonFastqcActionPerformed
 
     private void jButtonTrinityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTrinityActionPerformed
@@ -394,8 +403,12 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
     private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
         // TODO add your handling code here:
-        LimparFrame3 limparFrame = new LimparFrame3();
-        limparFrame.setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                 new LimparFrame3().setVisible(true);
+            }
+        });
     }//GEN-LAST:event_jButtonLimparActionPerformed
 
     private void jButtonConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConectarActionPerformed
@@ -433,45 +446,15 @@ public class PrincipalFrame extends javax.swing.JFrame {
               return foo==0;
             }
          };
-        }catch (Exception e){}    
+        }catch (Exception e){
+           
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu algum Problama ao concectar com o servidor.");
+            return;
+        }    
          jButtonConectar.setEnabled(false);
     }//GEN-LAST:event_jButtonConectarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PrincipalFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PrincipalFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PrincipalFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PrincipalFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PrincipalFrame().setVisible(true);
-            }
-        });
-    }
-    
+  
     public static File createShellScript() {
 	     String filename = "shellscript.sh";
 	     File fstream = new File(filename);

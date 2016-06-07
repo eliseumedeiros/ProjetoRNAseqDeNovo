@@ -42,8 +42,6 @@ public class FastqcFrame1 extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTextFComando1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jPanel2.setBackground(java.awt.Color.orange);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 36)); // NOI18N

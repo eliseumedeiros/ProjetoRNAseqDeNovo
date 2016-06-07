@@ -41,7 +41,6 @@ public class LimparFrame3 extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTextFComando1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(391, 277));
 
         jPanel2.setBackground(java.awt.Color.orange);

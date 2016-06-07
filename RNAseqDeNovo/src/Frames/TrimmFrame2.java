@@ -40,8 +40,6 @@ public class TrimmFrame2 extends javax.swing.JFrame {
         jTextFComando = new javax.swing.JTextField();
         jButtonDefalt = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jLabel2.setText("Parâmetros");
 
         jTextField1.setText("jTextField1");
