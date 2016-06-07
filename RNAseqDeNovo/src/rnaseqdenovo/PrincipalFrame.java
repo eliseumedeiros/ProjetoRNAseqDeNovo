@@ -5,6 +5,18 @@
  */
 package rnaseqdenovo;
 
+import Frames.FastqcFrame1;
+import Frames.LimparFrame3;
+import Frames.TrimmFrame2;
+import Frames.TrinityFrame4;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.Session;
+import com.jcraft.jsch.UserInfo;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author EliseuMedeiros
@@ -131,6 +143,11 @@ public class PrincipalFrame extends javax.swing.JFrame {
         jPasswordFSenha.setText("jPasswordField1");
 
         jButtonConectar.setText("Conectar");
+        jButtonConectar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConectarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -354,19 +371,71 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
     private void jButtonTrimmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTrimmActionPerformed
         // TODO add your handling code here:
+        TrimmFrame2 trimmFrame = new TrimmFrame2();
+        trimmFrame.setVisible(true);
     }//GEN-LAST:event_jButtonTrimmActionPerformed
 
     private void jButtonFastqcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFastqcActionPerformed
         // TODO add your handling code here:
+        FastqcFrame1 fastqcFrame = new FastqcFrame1();
+        fastqcFrame.setVisible(true);
     }//GEN-LAST:event_jButtonFastqcActionPerformed
 
     private void jButtonTrinityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTrinityActionPerformed
         // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                 new TrinityFrame4().setVisible(true);
+            }
+        });
+        
     }//GEN-LAST:event_jButtonTrinityActionPerformed
 
     private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
         // TODO add your handling code here:
+        LimparFrame3 limparFrame = new LimparFrame3();
+        limparFrame.setVisible(true);
     }//GEN-LAST:event_jButtonLimparActionPerformed
+
+    private void jButtonConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConectarActionPerformed
+        // TODO add your handling code here:
+        System.out.println("estabelecendo conexão");
+         try{
+             System.out.println("fazendo teste");
+          JSch jsch=new JSch();
+          //variáveis para conexão
+          String host=jTextFRoot.getText(); //@localhost
+          String user=host.substring(0, host.indexOf('@'));; //usuário
+          host=host.substring(host.indexOf('@')+1);
+
+          int porta=Integer.parseInt(jTextFPorta.getText()); //porta ssh
+          String password=new String(jPasswordFSenha.getPassword());
+          //######
+          System.out.println(host + "\t" + user + "\t"  + porta + "\t" +
+                  password);
+          //#######
+          Session session=jsch.getSession(user, host, porta); //estabelecendo conexão
+          session.setPassword(password);
+          // criando 
+          UserInfo ui = new MyUserInfo(){
+            public void showMessage(String message){
+              JOptionPane.showMessageDialog(null, message);
+            }
+            public boolean promptYesNo(String message){
+              Object[] options={ "yes", "no" };
+              int foo=JOptionPane.showOptionDialog(null, 
+                                                   message,
+                                                   "Warning", 
+                                                   JOptionPane.DEFAULT_OPTION, 
+                                                   JOptionPane.WARNING_MESSAGE,
+                                                   null, options, options[0]);
+              return foo==0;
+            }
+         };
+        }catch (Exception e){}    
+         jButtonConectar.setEnabled(false);
+    }//GEN-LAST:event_jButtonConectarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -402,6 +471,26 @@ public class PrincipalFrame extends javax.swing.JFrame {
             }
         });
     }
+    
+    public static File createShellScript() {
+	     String filename = "shellscript.sh";
+	     File fstream = new File(filename);
+
+	     try{
+	          // Create file 
+	         PrintStream out = new PrintStream(new FileOutputStream(fstream));
+	         out.println("#!/bin/bash");
+	         out.println("cd tutorialRNASEQ");
+	         out.println("mkdir screen");
+	   
+	         //Close the output stream
+	         out.close();
+	     }catch (Exception e){//Catch exception if any
+	         System.err.println("Error: " + e.getMessage());
+	     }
+	     return fstream;
+
+	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonConectar;
