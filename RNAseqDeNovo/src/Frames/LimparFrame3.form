@@ -197,7 +197,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFNomeArq">
               <Properties>
-                <Property name="text" type="java.lang.String" value="SRR030257_1.fastq"/>
+                <Property name="text" type="java.lang.String" value="SRR030257_1_trimmed.fq"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
@@ -214,6 +214,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancelar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

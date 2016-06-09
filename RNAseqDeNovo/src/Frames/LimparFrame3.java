@@ -106,13 +106,18 @@ public class LimparFrame3 extends javax.swing.JFrame {
 
         jTextFLocal.setText("AlinhamentoRNAseqDeNovo/");
 
-        jTextFNomeArq.setText("SRR030257_1.fastq");
+        jTextFNomeArq.setText("SRR030257_1_trimmed.fq");
 
         jLabel6.setText("Nome:");
 
         jLabel5.setText("Local:");
 
         jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -211,6 +216,16 @@ public class LimparFrame3 extends javax.swing.JFrame {
         }
         executandoComando(fstream);
     }//GEN-LAST:event_jButtonOkActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            this.dispose();
+        } catch (Throwable ex) {
+            Logger.getLogger(LimparFrame3.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 private void executandoComando(File fstream){
         try{
             Channel channel =session.openChannel("shell");
