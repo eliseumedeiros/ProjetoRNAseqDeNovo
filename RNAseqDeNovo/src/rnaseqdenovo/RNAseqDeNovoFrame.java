@@ -279,7 +279,7 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Baixar por SRA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(153, 204, 0))); // NOI18N
 
-        jTextFieldPrefetch.setText("DRR031614");
+        jTextFieldPrefetch.setText("SRR030257");
         jTextFieldPrefetch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldPrefetchActionPerformed(evt);
@@ -608,7 +608,7 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
             out.println("#!/bin/bash");
             if(!jTextFieldPrefetchLocal.getText().isEmpty())
                 out.println("cd " + jTextFieldPrefetchLocal.getText());
-            out.println("fastqc SRR030257_1.fastq; echo 'terminou' >a");
+            out.println("prefetch " + jTextFieldPrefetch.getText() + "; echo 'terminou' >pref");
             
             //Close the output stream
             out.close();

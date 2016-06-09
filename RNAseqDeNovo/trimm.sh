@@ -1,3 +1,3 @@
 #!/bin/bash
 cd AlinhamentoRNAseqDeNovo/
-trim_galore -q 20 SRR030257_1.fastq; echo 'terminou' >a
+Trinity --seqType fq --max_memory 50G --left SRR030257_1_trimmed.fq --CPU 6 -q; echo 'terminou' >trini

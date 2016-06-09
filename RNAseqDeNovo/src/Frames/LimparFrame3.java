@@ -112,7 +112,7 @@ public class LimparFrame3 extends javax.swing.JFrame {
 
         jLabel5.setText("Local:");
 
-        jButton1.setText("Cancelar");
+        jButton1.setText("Fechar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

@@ -159,7 +159,7 @@ public class FastqcFrame1 extends javax.swing.JFrame {
 
         jLabel4.setText("Local:");
 
-        jButton1.setText("Cancelar");
+        jButton1.setText("Fechar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -236,17 +236,6 @@ public class FastqcFrame1 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonSalvarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarComoActionPerformed
-        // TODO add your handling code here:
-        chooserSave = new JFileChooser();
-        //Se não carregou o arquivo, não faz nada
-        if (chooserSave.showSaveDialog(null) != JFileChooser.APPROVE_OPTION){
-            return;
-        }
-        String caminhoArq = chooserSave.getSelectedFile().toString();
-        jTextFLocalSalvar.setText(caminhoArq);
-    }//GEN-LAST:event_jButtonSalvarComoActionPerformed
-
     private void jButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOkActionPerformed
         // TODO add your handling code here:
          // TODO add your handling code here:
@@ -309,6 +298,17 @@ public class FastqcFrame1 extends javax.swing.JFrame {
             Logger.getLogger(FastqcFrame1.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonSalvarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarComoActionPerformed
+        // TODO add your handling code here:
+        chooserSave = new JFileChooser();
+        //Se não carregou o arquivo, não faz nada
+        if (chooserSave.showSaveDialog(null) != JFileChooser.APPROVE_OPTION){
+            return;
+        }
+        String caminhoArq = chooserSave.getSelectedFile().toString();
+        jTextFLocalSalvar.setText(caminhoArq);
+    }//GEN-LAST:event_jButtonSalvarComoActionPerformed
 
     /**
      * @param args the command line arguments

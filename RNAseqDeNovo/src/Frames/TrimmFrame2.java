@@ -145,7 +145,7 @@ public class TrimmFrame2 extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton3.setText("Cancelar");
+        jButton3.setText("Fechar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
