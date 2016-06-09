@@ -82,6 +82,8 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         jTextFieldLocalArquivo = new javax.swing.JTextField();
         jButtonAbrirArq = new javax.swing.JButton();
         jButtonEnviar = new javax.swing.JButton();
+        jTextFNomeEviar = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -329,7 +331,7 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTextFieldPrefetchLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
@@ -436,18 +438,28 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Nome:");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextFieldLocalArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonAbrirArq, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFNomeEviar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonEnviar)
+                        .addGap(30, 30, 30))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jTextFieldLocalArquivo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonAbrirArq, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31))))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -456,8 +468,12 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldLocalArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonAbrirArq))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonEnviar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFNomeEviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jButtonEnviar))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -473,7 +489,7 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 266, Short.MAX_VALUE)))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -653,24 +669,28 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         String filename = "enviaArquivo.sh"; 
 	File fstream = new File(filename);
         String command="scp -p -t "+ jTextFieldLocalArquivo.getText();
-        try{
-             // Create file 
-            PrintStream out = new PrintStream(new FileOutputStream(fstream));
-            out.println("#!/bin/bash");
-            out.println("ls > exec.txt");
-            out.println(command);
-            
-            //Close the output stream
-            out.close();
-        }catch (Exception e){//Catch exception if any
-            JOptionPane.showMessageDialog(rootPane, "Ocorreu algum erro ao executar o comando.");
-        }
-        executandoComando(fstream);
-          
+               
+        Process exec;  
+        String comandossh = "scp -P" + jTextFPorta+ " "+jTextFNomeEviar+ " "+ jTextFRoot.getText()+ ":"+jTextFieldLocalArquivo.getText();
+   
+              
+        try {  
+            exec = Runtime.getRuntime().exec("sshpass -p "+ jPasswordFSenha.getPassword().toString() + comandossh);
+        if ( exec.waitFor() == 0)  
+            System.out.println("Executado.");  
+        else  
+            System.out.println("ERRO");  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        } catch (InterruptedException e) {  
+            e.printStackTrace();  
+        }  
           
           
     }//GEN-LAST:event_jButtonEnviarActionPerformed
-
+    public void executarComando(String comandossh){
+    
+    }
     private void jTextFieldLocalArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLocalArquivoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldLocalArquivoActionPerformed
@@ -750,6 +770,7 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
@@ -761,6 +782,7 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPasswordField jPasswordFSenha;
+    private javax.swing.JTextField jTextFNomeEviar;
     private javax.swing.JTextField jTextFPorta;
     private javax.swing.JTextField jTextFRoot;
     private javax.swing.JTextField jTextFieldLocalArquivo;

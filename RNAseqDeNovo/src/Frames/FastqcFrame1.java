@@ -308,6 +308,7 @@ public class FastqcFrame1 extends javax.swing.JFrame {
         }
         String caminhoArq = chooserSave.getSelectedFile().toString();
         jTextFLocalSalvar.setText(caminhoArq);
+        
     }//GEN-LAST:event_jButtonSalvarComoActionPerformed
 
     /**
