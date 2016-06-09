@@ -1,5 +1,22 @@
 package Frames;
 
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,7 +35,13 @@ public class FastqcFrame1 extends javax.swing.JFrame {
     public FastqcFrame1() {
         initComponents();
     }
-
+    /**
+     * Creates new form FastqcFrame
+     */
+    public FastqcFrame1(Session session) {
+        this.session = session;
+        initComponents();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,12 +58,14 @@ public class FastqcFrame1 extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButtonOk = new javax.swing.JButton();
-        jButtonDefalt = new javax.swing.JButton();
-        jTextFComando = new javax.swing.JTextField();
+        jTextFNomeArq = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jTextFComando1 = new javax.swing.JTextField();
+        jTextFLocalSalvar = new javax.swing.JTextField();
         jButtonSalvarComo = new javax.swing.JButton();
+        jTextFNomeArq1 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setResizable(false);
 
@@ -79,21 +104,21 @@ public class FastqcFrame1 extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Arquivo"));
 
-        jButtonOk.setText("ok");
+        jButtonOk.setText("Ok");
         jButtonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonOkActionPerformed(evt);
             }
         });
 
-        jButtonDefalt.setText("Defalt");
+        jTextFNomeArq.setText("SRR030257_1.fastq");
 
         jLabel2.setText("Nome:");
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Salvar Análise"));
 
-        jTextFComando1.setText("home/");
+        jTextFLocalSalvar.setText("home/");
 
         jButtonSalvarComo.setText("Salvar como");
         jButtonSalvarComo.addActionListener(new java.awt.event.ActionListener() {
@@ -109,7 +134,7 @@ public class FastqcFrame1 extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFComando1, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
+                    .addComponent(jTextFLocalSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(175, 175, 175)
                         .addComponent(jButtonSalvarComo)))
@@ -119,44 +144,66 @@ public class FastqcFrame1 extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextFComando1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFLocalSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonSalvarComo)
                 .addContainerGap())
         );
 
+        jTextFNomeArq1.setText("AlinhamentoRNAseqDeNovo/");
+        jTextFNomeArq1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFNomeArq1ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Local:");
+
+        jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonOk, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFComando, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonDefalt)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFNomeArq1, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                    .addComponent(jTextFNomeArq))
+                .addContainerGap(68, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonOk, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFNomeArq1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextFComando, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonDefalt))
-                .addGap(36, 36, 36)
+                    .addComponent(jTextFNomeArq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonOk)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonOk)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -191,11 +238,77 @@ public class FastqcFrame1 extends javax.swing.JFrame {
 
     private void jButtonSalvarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarComoActionPerformed
         // TODO add your handling code here:
+        chooserSave = new JFileChooser();
+        //Se não carregou o arquivo, não faz nada
+        if (chooserSave.showSaveDialog(null) != JFileChooser.APPROVE_OPTION){
+            return;
+        }
+        String caminhoArq = chooserSave.getSelectedFile().toString();
+        jTextFLocalSalvar.setText(caminhoArq);
     }//GEN-LAST:event_jButtonSalvarComoActionPerformed
 
     private void jButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOkActionPerformed
         // TODO add your handling code here:
+         // TODO add your handling code here:
+        if (jTextFNomeArq.getText().isEmpty() ){
+            JOptionPane.showMessageDialog(rootPane, "Você precisa que colocar o nome do arquivo.");
+            return;
+        }
+
+        String filename = "fastqc.sh"; 
+	File fstream = new File(filename);
+
+        try{
+             // Create file 
+            PrintStream out = new PrintStream(new FileOutputStream(fstream));
+            out.println("#!/bin/bash");
+            if(!jTextFNomeArq1.getText().isEmpty())
+                out.println("cd " + jTextFNomeArq1.getText());
+            String command = "fastqc " + jTextFNomeArq.getText() + "; echo 'terminou' >a";
+            out.println(command);
+            System.out.println(command);
+            
+            //Close the output stream
+            out.close();
+        }catch (Exception e){//Catch exception if any
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu algum erro ao executar o comando.");
+        }
+        executandoComando(fstream);
+
+    }                                                 
+    private void executandoComando(File fstream){
+        try{
+            Channel channel =session.openChannel("shell");
+            FileInputStream fin = new FileInputStream(fstream);
+            byte fileContent[] = new byte[(int)fstream.length()];
+            fin.read(fileContent);
+            InputStream in = new ByteArrayInputStream(fileContent);
+                //Set the shell script to the channel as input stream
+            channel.setInputStream(in);
+            channel.connect();
+            
+        } catch (JSchException ex) {//erro channel
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu algum erro ao executar o channel.");
+        } catch (FileNotFoundException ex) { //erro FileImputStream
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu algum erro ao executar o FileImputStream.");
+        } catch (IOException ex) {//erro ImpitStream
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu algum erro ao executar o ImpitStream.");
+        }
     }//GEN-LAST:event_jButtonOkActionPerformed
+
+    private void jTextFNomeArq1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFNomeArq1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFNomeArq1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            this.dispose();
+        } catch (Throwable ex) {
+            Logger.getLogger(FastqcFrame1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,20 +347,25 @@ public class FastqcFrame1 extends javax.swing.JFrame {
             }
         });
     }
-
+    JFileChooser chooserSave;
+    JFileChooser chooserOpen;
+    JSch jsch;
+    Session session;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonDefalt;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonOk;
     private javax.swing.JButton jButtonSalvarComo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextFComando;
-    private javax.swing.JTextField jTextFComando1;
+    private javax.swing.JTextField jTextFLocalSalvar;
+    private javax.swing.JTextField jTextFNomeArq;
+    private javax.swing.JTextField jTextFNomeArq1;
     // End of variables declaration//GEN-END:variables
 }

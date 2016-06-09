@@ -5,14 +5,6 @@
  */
 package rnaseqdenovo;
 
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.Session;
-import com.jcraft.jsch.UserInfo;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author EliseuMedeiros

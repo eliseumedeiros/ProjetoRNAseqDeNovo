@@ -5,6 +5,21 @@
  */
 package Frames;
 
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author EliseuMedeiros
@@ -15,6 +30,10 @@ public class LimparFrame3 extends javax.swing.JFrame {
      * Creates new form LimparFrame
      */
     public LimparFrame3() {
+        initComponents();
+    }
+    public LimparFrame3(Session session) {
+        this.session = session;
         initComponents();
     }
 
@@ -34,12 +53,11 @@ public class LimparFrame3 extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButtonOk = new javax.swing.JButton();
-        jButtonDefalt = new javax.swing.JButton();
-        jTextFComando = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jButtonSalvarComo = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jTextFComando1 = new javax.swing.JTextField();
+        jTextFLocal = new javax.swing.JTextField();
+        jTextFNomeArq = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(391, 277));
         setResizable(false);
@@ -67,7 +85,7 @@ public class LimparFrame3 extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,21 +98,21 @@ public class LimparFrame3 extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Arquivo"));
 
         jButtonOk.setText("ok");
-
-        jButtonDefalt.setText("Defalt");
-
-        jLabel3.setText("Nome:");
-
-        jButtonSalvarComo.setText("Salvar como");
-        jButtonSalvarComo.addActionListener(new java.awt.event.ActionListener() {
+        jButtonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalvarComoActionPerformed(evt);
+                jButtonOkActionPerformed(evt);
             }
         });
 
-        jLabel4.setText("Local a salvar:");
+        jTextFLocal.setText("AlinhamentoRNAseqDeNovo/");
 
-        jTextFComando1.setText("home/");
+        jTextFNomeArq.setText("SRR030257_1.fastq");
+
+        jLabel6.setText("Nome:");
+
+        jLabel5.setText("Local:");
+
+        jButton1.setText("Cancelar");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -104,44 +122,36 @@ public class LimparFrame3 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFComando, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonDefalt)
-                        .addGap(0, 16, Short.MAX_VALUE))
+                        .addComponent(jButtonOk, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFComando1)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButtonSalvarComo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonOk, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jTextFLocal)
+                            .addComponent(jTextFNomeArq))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextFComando, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonDefalt))
-                .addGap(42, 42, 42)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextFLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextFComando1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonSalvarComo)
-                        .addContainerGap(29, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonOk)
-                        .addContainerGap())))
+                    .addComponent(jLabel6)
+                    .addComponent(jTextFNomeArq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonOk)
+                    .addComponent(jButton1))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -173,10 +183,53 @@ public class LimparFrame3 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonSalvarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarComoActionPerformed
+    private void jButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOkActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSalvarComoActionPerformed
+         // TODO add your handling code here:
+        if (jTextFNomeArq.getText().isEmpty() ){
+            JOptionPane.showMessageDialog(rootPane, "Você precisa que colocar o nome do arquivo.");
+            return;
+        }
 
+        String filename = "trimm.sh"; 
+	File fstream = new File(filename);
+
+        try{
+             // Create file 
+            PrintStream out = new PrintStream(new FileOutputStream(fstream));
+            out.println("#!/bin/bash");
+            if(!jTextFLocal.getText().isEmpty())
+                out.println("cd " + jTextFLocal.getText());
+            String command = "fastq_screen " + jTextFNomeArq+ "; echo 'terminou trimm' >a";
+            out.println(command);
+            System.out.println(command);
+            
+            //Close the output stream
+            out.close();
+        }catch (Exception e){//Catch exception if any
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu algum erro ao executar o comando.");
+        }
+        executandoComando(fstream);
+    }//GEN-LAST:event_jButtonOkActionPerformed
+private void executandoComando(File fstream){
+        try{
+            Channel channel =session.openChannel("shell");
+            FileInputStream fin = new FileInputStream(fstream);
+            byte fileContent[] = new byte[(int)fstream.length()];
+            fin.read(fileContent);
+            InputStream in = new ByteArrayInputStream(fileContent);
+                //Set the shell script to the channel as input stream
+            channel.setInputStream(in);
+            channel.connect();
+            
+        } catch (JSchException ex) {//erro channel
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu algum erro ao executar o channel.");
+        } catch (FileNotFoundException ex) { //erro FileImputStream
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu algum erro ao executar o FileImputStream.");
+        } catch (IOException ex) {//erro ImpitStream
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu algum erro ao executar o ImpitStream.");
+        }
+    }    
     /**
      * @param args the command line arguments
      */
@@ -214,20 +267,19 @@ public class LimparFrame3 extends javax.swing.JFrame {
             }
         });
     }
-
+    Session session;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonDefalt;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonOk;
-    private javax.swing.JButton jButtonSalvarComo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextFComando;
-    private javax.swing.JTextField jTextFComando1;
+    private javax.swing.JTextField jTextFLocal;
+    private javax.swing.JTextField jTextFNomeArq;
     // End of variables declaration//GEN-END:variables
 }

@@ -473,7 +473,7 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 266, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -510,7 +510,7 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                 new TrimmFrame2().setVisible(true);
+                 new TrimmFrame2(session).setVisible(true);
             }
         });
         
@@ -521,7 +521,7 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                 new FastqcFrame1().setVisible(true);
+                 new FastqcFrame1(session).setVisible(true);
             }
         });
     }//GEN-LAST:event_jButtonFastqcActionPerformed
@@ -531,7 +531,7 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                 new TrinityFrame4().setVisible(true);
+                 new TrinityFrame4(session).setVisible(true);
             }
         });
         
@@ -542,7 +542,7 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                 new LimparFrame3().setVisible(true);
+                 new LimparFrame3(session).setVisible(true);
             }
         });
     }//GEN-LAST:event_jButtonLimparActionPerformed
@@ -608,7 +608,8 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
             out.println("#!/bin/bash");
             if(!jTextFieldPrefetchLocal.getText().isEmpty())
                 out.println("cd " + jTextFieldPrefetchLocal.getText());
-            out.println("fastqc SRR030257_1.fastq");
+            out.println("fastqc SRR030257_1.fastq; echo 'terminou' >a");
+            
             //Close the output stream
             out.close();
         }catch (Exception e){//Catch exception if any
@@ -618,7 +619,7 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         enableAllButtons(true); //reativando botões
 
     }//GEN-LAST:event_jButtonOkPrefetchActionPerformed
-    private void executandoComando(File fstream){
+    public void executandoComando(File fstream){
         try{
             Channel channel =session.openChannel("shell");
             FileInputStream fin = new FileInputStream(fstream);
@@ -639,16 +640,35 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
     }
     private void jButtonAbrirArqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirArqActionPerformed
         // TODO add your handling code here:
-         // TODO add your handling code here:
         chooserOpen = new JFileChooser();
         //Se não carregou o arquivo, não tem o que fazer
         if (chooserOpen.showOpenDialog(null) != JFileChooser.APPROVE_OPTION){
             return;
         }
+        jTextFieldLocalArquivo.setText(chooserOpen.getSelectedFile().toString());        
     }//GEN-LAST:event_jButtonAbrirArqActionPerformed
 
     private void jButtonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEnviarActionPerformed
         // TODO add your handling code here:
+        String filename = "enviaArquivo.sh"; 
+	File fstream = new File(filename);
+        String command="scp -p -t "+ jTextFieldLocalArquivo.getText();
+        try{
+             // Create file 
+            PrintStream out = new PrintStream(new FileOutputStream(fstream));
+            out.println("#!/bin/bash");
+            out.println("ls > exec.txt");
+            out.println(command);
+            
+            //Close the output stream
+            out.close();
+        }catch (Exception e){//Catch exception if any
+            JOptionPane.showMessageDialog(rootPane, "Ocorreu algum erro ao executar o comando.");
+        }
+        executandoComando(fstream);
+          
+          
+          
     }//GEN-LAST:event_jButtonEnviarActionPerformed
 
     private void jTextFieldLocalArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLocalArquivoActionPerformed
@@ -684,8 +704,12 @@ public class RNAseqDeNovoFrame extends javax.swing.JFrame {
         jButtonTrimm.setEnabled(bool);
         jButtonLimpar.setEnabled(bool);
         jButtonTrinity.setEnabled(bool);
+        jButtonAbrirArq.setEnabled(bool);
     }
-  
+  /**
+   * Cria o arquivo a ser executado no ShellScript
+   * @return 
+   */
     public static File createShellScript() {
 	     String filename = "shellscript.sh";
 	     File fstream = new File(filename);
