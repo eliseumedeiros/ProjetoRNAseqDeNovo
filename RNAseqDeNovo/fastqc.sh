@@ -1,3 +1,3 @@
 #!/bin/bash
 cd AlinhamentoRNAseqDeNovo/
-fastqc SRR030257_1.fastq; echo 'terminou' >a
+fastqc SRR030257_1_trimmed.fq; echo 'terminou' >a
